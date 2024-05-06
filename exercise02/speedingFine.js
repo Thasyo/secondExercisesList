@@ -16,7 +16,7 @@ const showResult = (carSpeed) => {
     if(carSpeed < 0.00 || isNaN(carSpeed)){
 
         console.log("Conteúdo Inválido!");
-        carSpeed = parseFloat(prompt('Velocidade do carro: '));
+        carSpeed = parseFloat(prompt('Velocidade do carro (KM): '));
         showResult(carSpeed);
 
     }
@@ -27,13 +27,13 @@ const showResult = (carSpeed) => {
     
         console.log("VOCÊ ULTRAPASSOU O LIMITE DE VELOCIDADE!");
         console.log("GERANDO MULTA...");
-        console.log("Valor da multa: R$", trafficTicket);
+        console.log("Valor da multa: R$", trafficTicket.toFixed(2));
     
     }
 
 }
 
-let carSpeed = parseFloat(prompt("Velocidade do carro: "));
+let carSpeed = parseFloat(prompt("Velocidade do carro (KM): "));
 
 showResult(carSpeed);
 
