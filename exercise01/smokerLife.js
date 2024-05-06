@@ -11,26 +11,44 @@ const prompt = require('prompt-sync')();
 
 const numberOfLostDays = (totalCigarettesPerDay, totalYearsInAddiction) => {
 
-    const TOTAL_DAYS_PER_YEAR = 365;
-    const TOTAL_LOST_MINUTES_PER_CIGARETTE = 10;
-    const TOTAL_MINUTES_IN_A_DAY = 1440;
+    if(isNaN(totalCigarettesPerDay) || isNaN(totalYearsInAddiction)){
 
-    let totalOfCigarettesSmokedDuringAddiction = totalCigarettesPerDay * totalYearsInAddiction * TOTAL_DAYS_PER_YEAR;
+        console.log("Conteúdo Inválido! Digite Novamente!");
+        totalCigarettesPerDay = parseInt(prompt("Quantos cigarros você fuma por dia? "));
+        totalYearsInAddiction = parseInt(prompt("Quantos anos você já fumou? "));
+        numberOfLostDays(totalCigarettesPerDay, totalYearsInAddiction);
 
-    let totalMinutesOfLifeLost = totalOfCigarettesSmokedDuringAddiction * TOTAL_LOST_MINUTES_PER_CIGARETTE;
+    }else if(totalCigarettesPerDay < 0 || totalYearsInAddiction < 0){
 
-    let converterMinutesToDays = totalMinutesOfLifeLost / TOTAL_MINUTES_IN_A_DAY;
+        console.log("Valores Inválidos! Digite Novamente!");
+        totalCigarettesPerDay = parseInt(prompt("Quantos cigarros você fuma por dia? "));
+        totalYearsInAddiction = parseInt(prompt("Quantos anos você já fumou? "));
+        numberOfLostDays(totalCigarettesPerDay, totalYearsInAddiction);
 
-    let totalLostDays = Math.floor(converterMinutesToDays);
+    }else{
 
-    return totalLostDays;
+        const TOTAL_DAYS_PER_YEAR = 365;
+        const TOTAL_LOST_MINUTES_PER_CIGARETTE = 10;
+        const TOTAL_MINUTES_IN_A_DAY = 1440;
 
+        let totalOfCigarettesSmokedDuringAddiction = totalCigarettesPerDay * totalYearsInAddiction * TOTAL_DAYS_PER_YEAR;
+
+        let totalMinutesOfLifeLost = totalOfCigarettesSmokedDuringAddiction * TOTAL_LOST_MINUTES_PER_CIGARETTE;
+
+        let converterMinutesToDays = totalMinutesOfLifeLost / TOTAL_MINUTES_IN_A_DAY;
+
+        let totalDaysOfLifeLost = Math.floor(converterMinutesToDays);
+
+        console.log("Total de dias perdidos durante o vício (aproximadamente):", totalDaysOfLifeLost, "dias.");
+
+    }
+    
 }
 
 let numberOfCigarettesPerDay = parseInt(prompt("Quantos cigarros você fuma por dia? "));
 let numberOfYearsInAddiction = parseInt(prompt("Quantos anos você já fumou? "));
 
-let totalDaysOfLifeLost = numberOfLostDays(numberOfCigarettesPerDay, numberOfYearsInAddiction);
+numberOfLostDays(numberOfCigarettesPerDay, numberOfYearsInAddiction);
 
-console.log("Total de dias perdidos durante o vício (aproximadamente):", totalDaysOfLifeLost, "dias.");
+
 
